@@ -125,6 +125,7 @@ int main(int argc, char **argv) {
     action.goal.cmd = cmd;
     ac.sendGoal(action.goal);
     success = ac.waitForResult(ros::Duration(5.0));
+    ROS_INFO("success %d", success);
 
     //ROS_INFO("Send gripper command (open) ========================");
     //ROS_INFO("  Press enter to send ...");
