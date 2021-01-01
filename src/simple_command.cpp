@@ -35,8 +35,6 @@ double quat_y = 0;
 double quat_z = -0.644;
 double quat_w = 0.765;
 
-int toolID = 12;  // change this depenidning on the tool mounted
-
 typedef actionlib::SimpleActionServer<niryo_one_msgs::RobotMoveAction>
     NiryoServer;
 typedef actionlib::SimpleActionClient<niryo_one_msgs::RobotMoveAction>
@@ -55,14 +53,17 @@ int main(int argc, char **argv) {
     NiryoClient ac("/niryo_one/commander/robot_action/", true);
     // wait for the action server to start
     bool connection_success = false;
-    while (!connection_success) {
-        connection_success = ac.waitForServer(ros::Duration(3.0));
-        if (connection_success) {
-            ROS_INFO("  Robot Connection established");
-        } else {
-            ROS_WARN("  Error connecting to Robot. Trying again");
-        }
+    //while (!connection_success) {
+    connection_success = ac.waitForServer(ros::Duration(30.0));
+    if (! connection_success) {
+        ROS_WARN("  Error connecting to Robot. Terminate");
+        return 1;
     }
+        //if (connection_success) {
+            //ROS_INFO("  Robot Connection established");
+        //} else {
+        //}
+    //}
 
     // Setting Gripper
     // Setting gripper
